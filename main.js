@@ -1,11 +1,11 @@
-import { Import as Import } from "./imports/import.js"
-var imports = new Import()
+import { Import } from "./imports/import.js"
+var game = new Import(this)
 
-function init(){
-    tick()
-}
-function tick(){
+async function init(){
     requestAnimationFrame(tick)
-    imports.display.drawGameFrame()
+}
+async function tick(){
+    requestAnimationFrame(tick)
+    game.display.drawGameFrame()
 }
 init()

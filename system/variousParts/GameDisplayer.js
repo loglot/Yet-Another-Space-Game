@@ -7,7 +7,7 @@ var scaleY = 0;
 
 // import { Map }
 // import { Camera }
-import { DrawUtils } from "./drawUtils.js"
+import { DrawUtils } from "./drawUtills.js";
 
 export class GameDisplayer {
 
@@ -33,8 +33,8 @@ export class GameDisplayer {
         this.map = Map;
     }
     drawGameFrame() {
-        //this.resizeCanvasForWindowSize(canvas, ctx);
-        this.drawUtils.Rect(0,0,100,100,"#ffffff", ctx)
+        this.resizeCanvasForWindowSize(canvas, ctx);
+        this.drawUtils.Rect(0,0,1000,1000,"#ffffff", ctx)
     }
 
     fps(){

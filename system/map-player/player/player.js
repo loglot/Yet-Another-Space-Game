@@ -32,5 +32,8 @@ export class Player {
     move(){
         this.y += this.velY
         this.rotation += this.velR
+        this.game.camera.targetX = this.x
+        this.game.camera.targetY = this.y
+        this.game.camera.targetR = this.rotation
     }
 }

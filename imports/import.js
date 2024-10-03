@@ -1,8 +1,14 @@
-import { GameDisplayer as Display } from "../system/variousParts/GameDisplayer";
+import { GameDisplayer as Display } from "../system/variousParts/GameDisplayer.js";
+import { KeyManager } from "../system/variousParts/keyMan.js";
+import { Menu } from "../system/variousParts/MenuManager.js";
+
+
 
 
 
 export class Import {
-    map
-    display = new Display(this, map)
+    gameState = "mainMenu"
+    keyManager = new KeyManager(this)
+    menu = new Menu(this)
+    display = new Display(this)
 }

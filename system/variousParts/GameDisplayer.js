@@ -23,6 +23,11 @@ export class GameDisplayer {
     width
     height
 
+    maskX = 0
+    maskY = 0
+    maskWidth = this.originalWidth
+    maskHeight = this.originalHeight
+
     drawUtils = new DrawUtils();
 
     
@@ -33,8 +38,35 @@ export class GameDisplayer {
         this.map = Map;
     }
     drawGameFrame() {
+
         this.resizeCanvasForWindowSize(canvas, ctx);
-        this.drawUtils.Rect(0,0,1000,1000,"#ffffff", ctx)
+
+        this.drawUtils.Rect(0,0,10000,10000,"#90b0c0", ctx)
+        this.drawUtils.Text("Yet Another Space Game", 300, 200, "black", "white", ctx, 100)
+        this.drawUtils.Text("Press W To Start", 300, 320, "black", "white", ctx, 100)
+
+        
+        ctx.beginPath();
+        ctx.rect(this.maskX, this.maskY, this.maskWidth, this.maskHeight);
+        ctx.clip()
+        this.drawUtils.Rect(0,0,10000,10000,"#052030", ctx) ``
+        ctx.closePath();
+
+        if(this.game.gameState == "mainMenu"){
+            this.maskX = ((this.maskX*7) + this.originalWidth/2)/8
+            this.maskY = ((this.maskY*7) + this.originalHeight/2) / 8
+            this.maskWidth = (this.maskWidth*7)/8
+            this.maskHeight = (this.maskHeight*7)/8
+
+        } else {
+            this.maskX = ((this.maskX*7))/8
+            this.maskY = ((this.maskY*7)) / 8
+            this.maskWidth = ((this.maskWidth*7)+ this.originalWidth)/8
+            this.maskHeight = ((this.maskHeight*7)+ this.originalHeight)/8
+
+
+
+        }
     }
 
     fps(){
@@ -195,7 +227,8 @@ export class GameDisplayer {
         scaleX = (desiredWidth / this.originalWidth);
         scaleY = (desiredHeight / this.originalHeight);
 
-        ctx.setTransform(scaleY * this.game.camera.zoom, 0, 0, scaleX * this.game.camera.zoom, 0, 0)
+        //ctx.setTransform(scaleY * this.game.camera.zoom, 0, 0, scaleX * this.game.camera.zoom, 0, 0)
+            ctx.setTransform(scaleY, 0, 0, scaleX, 0, 0)        
 
         currentWidth = canvas.width;
         currentHeight = canvas.height;
@@ -209,7 +242,8 @@ export class GameDisplayer {
             canvas.height = desiredHeight;
             scaleX = (desiredWidth / this.originalWidth);
             scaleY = (desiredHeight / this.originalHeight);
-            ctx.setTransform(scaleY * this.game.camera.zoom, 0, 0, scaleX * this.game.camera.zoom, 0, 0)        
+            //ctx.setTransform(scaleY * this.game.camera.zoom, 0, 0, scaleX * this.game.camera.zoom, 0, 0)    
+            ctx.setTransform(scaleY, 0, 0, scaleX, 0, 0)        
         }
     }
 }

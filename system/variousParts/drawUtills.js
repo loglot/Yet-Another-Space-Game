@@ -60,7 +60,7 @@ export class DrawUtils {
         
     }
 
-    Text(text, x, y, strokeColor = 'black', fillColor = 'white', drawerForCtxThingieWowICanHaveThisBeLongAndItsFine = ctx) {
+    text(text, x, y, strokeColor = 'black', fillColor = 'white', drawerForCtxThingieWowICanHaveThisBeLongAndItsFine = ctx) {
         drawerForCtxThingieWowICanHaveThisBeLongAndItsFine.font = '80px Sans-serif';
         drawerForCtxThingieWowICanHaveThisBeLongAndItsFine.strokeStyle = strokeColor;
         drawerForCtxThingieWowICanHaveThisBeLongAndItsFine.lineWidth = 8;
@@ -70,6 +70,55 @@ export class DrawUtils {
         drawerForCtxThingieWowICanHaveThisBeLongAndItsFine.fillStyle = fillColor;
         drawerForCtxThingieWowICanHaveThisBeLongAndItsFine.fillText(text, x, y);
 
+    }
+    Text(text, x, y, strokeColor = 'black', fillColor = 'white', Ctx = ctx, size = 80) {
+        Ctx.font = `${size}px Sans-serif`;
+        Ctx.strokeStyle = strokeColor;
+        Ctx.lineWidth = 8;
+        Ctx.lineJoin="miter";
+        Ctx.miterLimit=2;
+        Ctx.strokeText(text, x, y);
+        Ctx.fillStyle = fillColor;
+        Ctx.fillText(text, x, y);
+
+    }
+
+    // Text(text = "null", x = 100, y = 100, color = "white", width = 1500, size = 80, shadow = true, stroke = "black", linewidth = 8) {
+    //     ctx.font = `${size}px Sans-serif`;
+    //     ctx.lineWidth = linewidth;
+    //     ctx.lineJoin="miter";
+    //     ctx.miterLimit=2;
+    //     var splitText = this.getLines(ctx, text, width)
+    //     for(let i = 0; i < splitText.length; i++){
+    //         if(shadow == true){
+    //             ctx.strokeStyle = 'rgba(0,0,0,.1)';
+    //             ctx.strokeText(splitText[i], x - 5+ this.xOffset, (y + 5) + (75*i));
+    //         }
+    //         ctx.strokeStyle = stroke;
+            
+    //         ctx.strokeText(splitText[i], x+ this.xOffset, y + (75*i));
+    //         ctx.fillStyle = color;
+    //         ctx.fillText(splitText[i], x+ this.xOffset, y + (75*i));
+    //     }
+    // }
+    
+    getLines(ctx, text, maxWidth) {
+        var words = text.split(" ");
+        var lines = [];
+        var currentLine = words[0];
+    
+        for (var i = 1; i < words.length; i++) {
+            var word = words[i];
+            var width = ctx.measureText(currentLine + " " + word).width;
+            if (width < maxWidth) {
+                currentLine += " " + word;
+            } else {
+                lines.push(currentLine);
+                currentLine = word;
+            }
+        }
+        lines.push(currentLine);
+        return lines;
     }
 
     Line(x1, y1, x2, y2, color, width = 20, outline = true, oColor = "black", weight = 5, drawTime = ctx, cap = "round") {

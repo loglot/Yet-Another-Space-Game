@@ -8,6 +8,8 @@ async function tick(){
     requestAnimationFrame(tick)
     game.keyManager.tick()
     game.menu.tick()
+    game.player.tick()
+    game.camera.tick()
     game.display.drawGameFrame()
 }
 init()

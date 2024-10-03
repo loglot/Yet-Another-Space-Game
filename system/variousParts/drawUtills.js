@@ -4,61 +4,7 @@ const canvas = document.getElementById("game_screen");
 const ctx = canvas.getContext("2d");
 
 export class DrawUtils {
-    
-    Bean(x, y, width, height, color) {
 
-        ctx.beginPath();
-        ctx.arc(x - 10, (y + 10) - (height / 2), width / 2 +5, 0, ( Math.PI/180 ) * 180, ( Math.PI/180 ) * 180,  false);
-        ctx.fillStyle = "rgba(0, 0, 0, .2)";
-        ctx.fill();
-        ctx.closePath();
-
-        ctx.beginPath();
-        ctx.arc(x - 10, (y + (height - (width / 2)) + 10) - (height / 2), width / 2 +5, 0, Math.PI, false);
-        ctx.fill();
-        ctx.closePath();
-
-        ctx.beginPath();
-        ctx.rect((x - 15) - (width / 2), y - (height / 2) + 10, width + 10 , height - width / 2 );
-        ctx.fill();
-        ctx.closePath();    
-
-
-        ctx.beginPath();
-        ctx.rect((x - 5) - (width / 2) , (y - 5) - (height / 2), width + 10 , height - width / 2 + 10);
-        ctx.fillStyle = "#33363f";
-        ctx.fill();
-        ctx.closePath();
-
-        ctx.beginPath();
-        ctx.arc(x, (y + (height - (width / 2))) - (height / 2) , width / 2 + 5, 0, Math.PI * 2, false);
-        ctx.fill();
-        ctx.closePath();
-
-        ctx.beginPath();
-        ctx.arc(x, y - (height / 2), width / 2 +5, 0, Math.PI * 2, false);
-        ctx.fill();
-        ctx.closePath();
-
-        // Draw inside color of bean
-
-        ctx.beginPath();
-        ctx.rect(x - (width / 2), y - (height / 2), width, height - width / 2);
-        ctx.fillStyle = color;
-        ctx.fill();
-        ctx.closePath();
-
-        ctx.beginPath();
-        ctx.arc(x, (y + (height - (width / 2))) - (height / 2), width / 2, 0, Math.PI * 2, false);
-        ctx.fill();
-        ctx.closePath();
-
-        ctx.beginPath();
-        ctx.arc(x, y - (height / 2), width / 2, 0, Math.PI * 2, false);
-        ctx.fill();
-        ctx.closePath();
-        
-    }
 
     text(text, x, y, strokeColor = 'black', fillColor = 'white', drawerForCtxThingieWowICanHaveThisBeLongAndItsFine = ctx) {
         drawerForCtxThingieWowICanHaveThisBeLongAndItsFine.font = '80px Sans-serif';
@@ -130,6 +76,7 @@ export class DrawUtils {
             drawTime.strokeStyle = oColor;
             drawTime.lineCap = "round";
             drawTime.stroke();
+            drawTime.closePath();
         }
         drawTime.beginPath();
         drawTime.moveTo(x1, y1);
@@ -138,6 +85,7 @@ export class DrawUtils {
         drawTime.strokeStyle = color;
         drawTime.lineCap = "round";
         drawTime.stroke();
+        drawTime.closePath();
 
     }
  
@@ -157,6 +105,23 @@ export class DrawUtils {
         drawingTool.fillStyle = color;
         drawingTool.fill()
         drawingTool.closePath();
+    }
+    Player(x = 0, y = 0, color = "#afbfaf") {
+        ctx.beginPath();
+        ctx.moveTo(x - 40, y+50)
+        ctx.lineTo(x, y-50)
+        ctx.lineTo(x + 40, y+50)
+        ctx.lineTo(x, y+30)
+        ctx.lineTo(x - 40, y+50)
+        ctx.lineTo(x, y-50)
+        ctx.fillStyle = color
+        ctx.strokeStyle = "#33363f"
+        ctx.lineWidth = 15
+        ctx.lineJoin = "round";
+        
+        ctx.stroke()
+        ctx.fill()
+        ctx.closePath();
     }
 
 }

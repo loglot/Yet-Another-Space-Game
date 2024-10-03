@@ -17,10 +17,13 @@ export class Player {
     }
     changeVel(){
         if(this.game.keyManager.isKeyPressed("KeyW")){
-            this.velY--
+            this.velY -= Math.cos(this.rotation * Math.PI /180)
+            this.velX -= Math.sin(this.rotation * Math.PI /180)
         }
         if(this.game.keyManager.isKeyPressed("KeyS")){
-            this.velY++
+            this.velY *= .90
+            this.velX *= .90
+            this.velR *= .90
         }
         if(this.game.keyManager.isKeyPressed("KeyA")){
             this.velR +=.1
@@ -31,9 +34,18 @@ export class Player {
     }
     move(){
         this.y += this.velY
+        this.x += this.velX
         this.rotation += this.velR
         this.game.camera.targetX = this.x
         this.game.camera.targetY = this.y
+        if(this.rotation >= 360){
+            this.rotation -= 360
+            this.game.camera.rotation -= 360
+        }
+        if(this.rotation <= 0){
+            this.rotation += 360
+            this.game.camera.rotation += 360
+        }
         this.game.camera.targetR = this.rotation
     }
 }

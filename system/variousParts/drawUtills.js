@@ -108,7 +108,7 @@ export class DrawUtils {
     }
     Player(x = 0, y = 0, rotate=0, color = "#afbfaf") {
         ctx.beginPath();
-        ctx.translate(x/2,y)
+        ctx.translate(x,y)
         ctx.rotate(rotate * Math.PI / 180)
         ctx.moveTo( - 40, +50)
         ctx.lineTo(0, -50)
@@ -124,7 +124,7 @@ export class DrawUtils {
         ctx.stroke()
         ctx.fill()
         ctx.rotate(-(rotate * Math.PI / 180))
-        ctx.translate(-x/2,-y)
+        ctx.translate(-x,-y)
         ctx.closePath();
     }
 

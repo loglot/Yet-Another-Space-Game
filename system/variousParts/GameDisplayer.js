@@ -23,10 +23,10 @@ export class GameDisplayer {
     width
     height
 
-    maskX = this.originalWidth/2
-    maskY = this.originalHeight/2
-    maskWidth = 0
-    maskHeight = 0
+    maskX = -2000
+    maskY = -100
+    maskWidth = 100000
+    maskHeight = 100000
 
     drawUtils = new DrawUtils();
 
@@ -42,31 +42,29 @@ export class GameDisplayer {
         this.resizeCanvasForWindowSize(canvas, ctx);
 
         this.drawUtils.Rect(0,0,10000,10000,"#90b0c0", ctx)
-        this.drawUtils.Text("Yet Another Space Game", 300, 200, "black", "white", ctx, 120)
-        this.drawUtils.Text("Press W To Start", 300, 350, "black", "white", ctx, 120)
+        this.drawUtils.Text("Yet Another Space Game", 200, 200, "black", "white", ctx, 120)
+        this.drawUtils.Text("Press W To Start", 250, 500, "black", "white", ctx, 120)
+        this.drawUtils.Text("Press S To Edit Settings", 250, 350, "black", "white", ctx, 120)
 
         
         ctx.beginPath();
-        ctx.rect(this.maskX, this.maskY, this.maskWidth, this.maskHeight);
-        ctx.clip()
         ctx.translate(this.originalWidth/2, this.originalHeight/2)
+        ctx.rotate(-30 * Math.PI / 180)
+        ctx.rect(this.maskX, this.maskY, this.maskWidth, this.maskHeight);
+        ctx.rotate(30 * Math.PI / 180)
+        ctx.clip()
         ctx.rotate(this.game.camera.rotation * Math.PI / 180)
+        ctx.translate(-this.game.camera.x, -this.game.camera.y)
         this.drawUtils.Rect(-10000,-10000,100000,100000,"#052030", ctx) 
-        this.drawUtils.Player(this.game.player.x-this.game.camera.x, this.game.player.y-this.game.camera.y,  -this.game.player.rotation)
+        this.drawUtils.Player(this.game.player.x, this.game.player.y,  -this.game.player.rotation)
         this.game.map.draw()
         ctx.closePath()
 
         if(this.game.gameState == "mainMenu"){
-            this.maskX = ((this.maskX*7) + this.originalWidth/2)/8
-            this.maskY = ((this.maskY*7) + this.originalHeight/2) / 8
-            this.maskWidth = (this.maskWidth*7)/8
-            this.maskHeight = (this.maskHeight*7)/8
+            this.maskY = ((this.maskY*7) -100) / 8
 
         } else {
-            this.maskX = ((this.maskX*7)-1)/8
-            this.maskY = ((this.maskY*7)-1) / 8
-            this.maskWidth = ((this.maskWidth*7)+ this.originalWidth+2)/8
-            this.maskHeight = ((this.maskHeight*7)+ this.originalHeight+2)/8
+            this.maskY = ((this.maskY*7)-1300) / 8
             //this.game.map.map[0].rotation++
 
 

@@ -60,6 +60,7 @@ export class GameDisplayer {
             this.maskY[1] = ((this.maskY[1]*7)+1500) / 8
             //this.game.map.map[0].rotation++
         } else if(this.game.gameState == "settings") {
+            this.maskY[0] = ((this.maskY[0]*7) -100) / 8
             this.maskY[1] = ((this.maskY[1]*7)-100) / 8
             //this.game.map.map[0].rotation++
         }
@@ -94,13 +95,13 @@ export class GameDisplayer {
     }
 
     gameScreen(){
-        ctx.beginPath()
         ctx.save();
+        ctx.beginPath()
         this.gameSetup()
         this.drawUtils.Player(this.game.player.x, this.game.player.y,  -this.game.player.rotation)
         this.game.map.draw()
-        ctx.restore();
         ctx.closePath()
+        ctx.restore();
 
     }
 
@@ -111,7 +112,7 @@ export class GameDisplayer {
         for(let i = 0; i < this.game.menu.settings.length; i++){
 
             var ything = 450 + (100*i) + (this.shopY)
-            this.drawUtils.Text(this.game.menu.settings[i].title + " : " + this.game.menu.settings[i].state, ((310-i*200)-(this.shopY*2 ))-1000,(ything + (((ything)-450)*((ything)-450))/40)-450,"black","white",ctx,80 + i*20 +(this.shopY/5 ))
+            this.drawUtils.Text(this.game.menu.settings[i].title + " : " + this.game.menu.settings[i].state, ((310-i*200)-(this.shopY*2 ))-1000,(ything + (((ything)-450)*((ything)-450))/40)-470,"black","white",ctx,80 + i*20 +(this.shopY/5 ))
             
         }
     }
@@ -129,12 +130,14 @@ export class GameDisplayer {
     }
 
     optionsSetup(){
+        ctx.beginPath()
         ctx.translate(this.originalWidth/2, this.originalHeight/2)
         ctx.rotate(60 * Math.PI / 180)
         ctx.rect(this.maskX[1], this.maskY[1], this.maskWidth[1], this.maskHeight[1])
         ctx.rotate(-60 * Math.PI / 180)
         ctx.clip()
         this.drawUtils.Rect(-10000,-10000,100000,100000,this.game.menu.colors[1], ctx) 
+        ctx.closePath()
 
     }
 

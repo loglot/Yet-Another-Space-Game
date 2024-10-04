@@ -9,6 +9,10 @@ import { Camera } from "../system/map-player/player/camera.js";
 
 
 export class Import {
+
+
+    gameStyle
+
     gameState = "mainMenu"
     camera = new Camera(this)
     keyManager = new KeyManager(this)

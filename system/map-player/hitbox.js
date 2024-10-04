@@ -51,12 +51,13 @@ export class Hitbox {
     tempDraw(color) {
         if(!this.hidden
         ) {
-            ctx.beginPath()
+            
             ctx.translate(this.x, this.y)
             ctx.rotate(this.rotation*Math.PI/180)
-            ctx.fillStyle = color;
-            ctx.fillRect(-this.width/2,-this.height/2 , this.width, this.height);
-            ctx.closePath();
+            ctx.rect(-this.width/2,-this.height/2 , this.width, this.height);
+            //ctx.fillRect(-this.width/2,-this.height/2 , this.width, this.height);
+            ctx.translate(-this.x, -this.y)
+            ctx.rotate(-this.rotation*Math.PI/180)
         }
     }
 }

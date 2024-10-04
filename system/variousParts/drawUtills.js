@@ -117,12 +117,13 @@ export class DrawUtils {
         ctx.lineTo( - 40, +50)
         ctx.lineTo(0, -50)
         ctx.fillStyle = color
-        ctx.strokeStyle = "#33363f"
+        // ctx.strokeStyle = "#33363f"
+        ctx.strokeStyle = "white"
         ctx.lineWidth = 15
         ctx.lineJoin = "round";
         
         ctx.stroke()
-        ctx.fill()
+        //ctx.fill()
         ctx.rotate(-(rotate * Math.PI / 180))
         ctx.translate(-x,-y)
         ctx.closePath();

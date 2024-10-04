@@ -38,6 +38,9 @@ export class Player {
         this.rotation += this.velR
         this.game.camera.targetX = this.x
         this.game.camera.targetY = this.y
+        this.velY *= .97
+        this.velX *= .97
+        this.velR *= .97
         if(this.rotation >= 360){
             this.rotation -= 360
             this.game.camera.rotation -= 360

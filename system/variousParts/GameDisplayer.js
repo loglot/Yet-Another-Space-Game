@@ -53,6 +53,7 @@ export class GameDisplayer {
         ctx.rect(this.maskX, this.maskY, this.maskWidth, this.maskHeight);
         ctx.rotate(30 * Math.PI / 180)
         ctx.clip()
+        this.drawUtils.Rect(-10000,-10000,100000,100000,"#052030", ctx) 
         ctx.rotate(this.game.camera.rotation * Math.PI / 180)
         ctx.translate(-this.game.camera.x, -this.game.camera.y)
         this.drawUtils.Rect(-10000,-10000,100000,100000,"#052030", ctx) 

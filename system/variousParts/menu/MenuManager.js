@@ -11,7 +11,7 @@ export class Menu{
     }
 
     makeSettings(){
-        this.settings[this.settings.length] = new Item("Game Style", "Classic", new function fun(){ this.state = "Retro"}, this.game)
+        this.settings[this.settings.length] = new Item("Game Style", "Classic", function fun(){ this.state = "Retro"}, this.game)
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()

@@ -3,8 +3,9 @@ export class Item{
     title
     state
     game
-    var1
-    constructor(title = "null", state = false, fn = function fun(){this.game.menu.colors[0] = "white"}, game){
+    var1 = 0
+    var2 = null
+    constructor(title = "null", state = false, fn = function fun(){}, game){
         this.func = fn
         this.title = title
         this.state = state
@@ -13,7 +14,6 @@ export class Item{
 
 
     interact(){
-        this.game.menu.colors[1] = "white"
         this.func()
     }
 }

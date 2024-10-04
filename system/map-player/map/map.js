@@ -3,8 +3,13 @@ const canvas = document.getElementById("game_screen");
 const ctx = canvas.getContext("2d");
 export class Map{
     map = []
-    constructor(){
+    fillColor = ["#aaa", "#052030", "#0f0f0f"]
+    strokeColor = ["rgba(0,0,0,0)","white","rgba(0,0,0,0)"]
+
+    game
+    constructor(game){
         this.makeMap()
+        this.game = game
     }
     makeMap(){
         this.map[this.map.length] = new Hitbox(-1000,-1000,1000,10000, 0)
@@ -16,16 +21,15 @@ export class Map{
         ctx.beginPath()
         for(let i = 0; i < this.map.length; i++){
 
-            this.map[i].tempDraw("#aaa")
+            this.map[i].tempDraw()
         }
-        ctx.closePath();
         //ctx.fill()
         //ctx.lineWidth = 8
         //ctx.strokeStyle = "ff0000"
         ctx.lineWidth = 32
-        ctx.strokeStyle = "white"
+        ctx.strokeStyle = this.strokeColor[this.game.menu.settings[0].var1]
         ctx.stroke()
-        ctx.fillStyle = "#052030"
+        ctx.fillStyle = this.fillColor[this.game.menu.settings[0].var1]
         ctx.fill()
         ctx.closePath();
         //ctx.closePath();

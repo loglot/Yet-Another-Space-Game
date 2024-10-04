@@ -106,7 +106,7 @@ export class DrawUtils {
         drawingTool.fill()
         drawingTool.closePath();
     }
-    Player(x = 0, y = 0, rotate=0, color = "#afbfaf") {
+    Player(x = 0, y = 0, rotate=0, color = "#afbfaf", stroke = "#53565f") {
         ctx.beginPath();
         ctx.translate(x,y)
         ctx.rotate(rotate * Math.PI / 180)
@@ -117,13 +117,13 @@ export class DrawUtils {
         ctx.lineTo( - 40, +50)
         ctx.lineTo(0, -50)
         ctx.fillStyle = color
-        // ctx.strokeStyle = "#33363f"
-        ctx.strokeStyle = "white"
+         ctx.strokeStyle = stroke
+        //ctx.strokeStyle = "white"
         ctx.lineWidth = 15
         ctx.lineJoin = "round";
         
         ctx.stroke()
-        //ctx.fill()
+        ctx.fill()
         ctx.rotate(-(rotate * Math.PI / 180))
         ctx.translate(-x,-y)
         ctx.closePath();

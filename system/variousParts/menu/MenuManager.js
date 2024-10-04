@@ -11,7 +11,18 @@ export class Menu{
     }
 
     makeSettings(){
-        this.settings[this.settings.length] = new Item("Game Style", "Classic", function fun(){ this.state = "Retro"}, this.game)
+        this.settings[this.settings.length] = new Item("Game Style", "Classic", function fun(){ 
+            if(this.var1 == null){
+                this.var1 = 0
+            }if(this.var2 == null){
+                this.var2 = ["Classic", "Retro", "YA2P"]
+            }
+            this.var1++
+            if(this.var1>this.var2.length-1){
+                this.var1=0
+            }
+            this.state = this.var2[this.var1]
+        }, this.game)
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
@@ -41,13 +52,13 @@ export class Menu{
             if(this.game.keyManager.wasKeyJustPressed("ArrowDown")){
                 this.settingSelect++
             }
-            if(this.game.keyManager.wasKeyJustPressed("KeyL")){
-                this.colors[0] = "#0f0f2f"
-                this.colors[1] = "#1f1f3f"
+            if(this.game.keyManager.wasKeyJustPressed("Enter")){
 
-                this.settings[0].interact()
+                this.settings[this.settingSelect].interact()
                 
             }
+            // this.colors[0] = "#0f0f2f"
+            // this.colors[1] = "#1f1f3f"
 
         }
         if(this.game.gameState == "game"){

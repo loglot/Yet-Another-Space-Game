@@ -23,12 +23,15 @@ export class GameDisplayer {
     width
     height
 
-    bg = "#052030"
+    bg = ["#052030","#052030","#90b0c0"]
 
     maskX = [-2000,-2000] //, 
-    maskY = [-100,1000]
+    maskY = [-100,1500]
     maskWidth = [100000,100000]
     maskHeight = [100000,100000]
+
+    playerFillColors = ["#afbfaf", "rgba(0,0,0,0)", "#afbfaf"]
+    playerStrokeColors = ["#53565f", "white", "#33363f"]
 
     shopY = 0
 
@@ -55,7 +58,7 @@ export class GameDisplayer {
 
         if(this.game.gameState == "mainMenu"){
             this.maskY[0] = ((this.maskY[0]*7) -100) / 8
-            this.maskY[1] = ((this.maskY[1]*7)+1000) / 8
+            this.maskY[1] = ((this.maskY[1]*7)+1155) / 8
 
         } else if(this.game.gameState == "game") {
             this.maskY[0] = ((this.maskY[0]*7)-1300) / 8
@@ -63,7 +66,7 @@ export class GameDisplayer {
             //this.game.map.map[0].rotation++
         } else if(this.game.gameState == "settings") {
             this.maskY[0] = ((this.maskY[0]*7) -100) / 8
-            this.maskY[1] = ((this.maskY[1]*7)-100) / 8
+            this.maskY[1] = ((this.maskY[1]*7)+100) / 8
             //this.game.map.map[0].rotation++
         }
     }
@@ -100,7 +103,7 @@ export class GameDisplayer {
         ctx.save();
         ctx.beginPath()
         this.gameSetup()
-        this.drawUtils.Player(this.game.player.x, this.game.player.y,  -this.game.player.rotation)
+        this.drawUtils.Player(this.game.player.x, this.game.player.y,  -this.game.player.rotation, this.playerFillColors[this.game.menu.settings[0].var1], this.playerStrokeColors[this.game.menu.settings[0].var1])
         this.game.map.draw()
         ctx.closePath()
         ctx.restore();
@@ -109,12 +112,12 @@ export class GameDisplayer {
 
     optionsScreen(){
         this.optionsSetup()
-        this.drawUtils.Text("=>", -900, -10, "black", "white", ctx, 120)
+        this.drawUtils.Text("=>", -1100, -10, "black", "white", ctx, 120)
         this.shopY = (this.shopY*9 + (-100 * this.game.menu.settingSelect))/10
         for(let i = 0; i < this.game.menu.settings.length; i++){
 
             var ything = 450 + (100*i) + (this.shopY)
-            this.drawUtils.Text(this.game.menu.settings[i].title + " : " + this.game.menu.settings[i].state, ((310-i*200)-(this.shopY*2 ))-1000,(ything + (((ything)-450)*((ything)-450))/40)-470,"black","white",ctx,80 + i*20 +(this.shopY/5 ))
+            this.drawUtils.Text(this.game.menu.settings[i].title + " : " + this.game.menu.settings[i].state, ((310-i*200)-(this.shopY*2 ))-1250,(ything + (((ything)-450)*((ything)-450))/40)-470,"black","white",ctx,80 + i*20 +(this.shopY/5 ))
             
         }
     }
@@ -125,7 +128,7 @@ export class GameDisplayer {
         ctx.rect(this.maskX[0], this.maskY[0], this.maskWidth[0], this.maskHeight[0])
         ctx.rotate(30 * Math.PI / 180)
         ctx.clip()
-        this.drawUtils.Rect(-10000,-10000,100000,100000,this.bg, ctx) 
+        this.drawUtils.Rect(-10000,-10000,100000,100000,this.bg[this.game.menu.settings[0].var1], ctx) 
         ctx.rotate(this.game.camera.rotation * Math.PI / 180)
         ctx.translate(-this.game.camera.x, -this.game.camera.y)
 

@@ -23,6 +23,8 @@ export class GameDisplayer {
     width
     height
 
+    bg = "#052030"
+
     maskX = [-2000,-2000] //, 
     maskY = [-100,1000]
     maskWidth = [100000,100000]
@@ -43,7 +45,7 @@ export class GameDisplayer {
 
         this.resizeCanvasForWindowSize(canvas, ctx);
 
-        this.drawUtils.Rect(0,0,10000,10000,"#90b0c0", ctx)
+        this.drawUtils.Rect(0,0,10000,10000,this.game.menu.colors[0], ctx)
         this.drawUtils.Text("Yet Another Space Game", 200, 200, "black", "white", ctx, 120)
         this.drawUtils.Text("Press W To Start", 250, 500, "black", "white", ctx, 120)
         this.drawUtils.Text("Press S To Edit Settings", 250, 350, "black", "white", ctx, 120)
@@ -107,7 +109,7 @@ export class GameDisplayer {
 
     optionsScreen(){
         this.optionsSetup()
-        this.drawUtils.Text("=>", -1100, 0, "black", "white", ctx, 120)
+        this.drawUtils.Text("=>", -900, -10, "black", "white", ctx, 120)
         this.shopY = (this.shopY*9 + (-100 * this.game.menu.settingSelect))/10
         for(let i = 0; i < this.game.menu.settings.length; i++){
 
@@ -123,7 +125,7 @@ export class GameDisplayer {
         ctx.rect(this.maskX[0], this.maskY[0], this.maskWidth[0], this.maskHeight[0])
         ctx.rotate(30 * Math.PI / 180)
         ctx.clip()
-        this.drawUtils.Rect(-10000,-10000,100000,100000,"#052030", ctx) 
+        this.drawUtils.Rect(-10000,-10000,100000,100000,this.bg, ctx) 
         ctx.rotate(this.game.camera.rotation * Math.PI / 180)
         ctx.translate(-this.game.camera.x, -this.game.camera.y)
 

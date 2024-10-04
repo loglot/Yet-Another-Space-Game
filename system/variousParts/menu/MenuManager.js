@@ -11,7 +11,14 @@ export class Menu{
     }
 
     makeSettings(){
-        this.settings[this.settings.length] = new Item()
+        this.settings[this.settings.length] = new Item("Game Style", "Classic", new function fn(){
+            if(this.state == "Classic"){
+                this.state = "Retro"
+            } else {
+                this.state = "Classic"
+            }
+            this.state = "Retro"
+        }, this.game)
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
@@ -40,6 +47,14 @@ export class Menu{
             }
             if(this.game.keyManager.wasKeyJustPressed("ArrowDown")){
                 this.settingSelect++
+            }
+            if(this.game.keyManager.wasKeyJustPressed("KeyL")){
+                this.colors[0] = "#0f0f2f"
+                this.colors[1] = "#1f1f3f"
+                for(let i = 0; i < this.settings.length; i++){
+
+                    this.settings[i].interact()
+                }
             }
 
         }

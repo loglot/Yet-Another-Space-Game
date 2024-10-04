@@ -1,6 +1,6 @@
 import { GameDisplayer as Display } from "../system/variousParts/GameDisplayer.js";
 import { KeyManager } from "../system/variousParts/keyMan.js";
-import { Menu } from "../system/variousParts/MenuManager.js";
+import { Menu } from "../system/variousParts/menu/MenuManager.js";
 import { Map } from "../system/map-player/map/map.js";
 import { Player } from "../system/map-player/player/player.js";
 import { Camera } from "../system/map-player/player/camera.js";

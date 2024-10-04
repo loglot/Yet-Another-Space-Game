@@ -11,8 +11,14 @@ export class Map{
         this.map[this.map.length] = new Hitbox(-1000,-1000,1000,10000, 0)
     }
     draw(){
+        //ctx.beginPath()
         for(let i = 0; i < this.map.length; i++){
+
             this.map[i].tempDraw("#aaa")
         }
+        //ctx.lineWidth = 8
+        //ctx.strokeStyle = "ff0000"
+        //ctx.stroke()
+        //ctx.closePath();
     }
 }

@@ -84,6 +84,7 @@ export class KeyManager {
         case "Minus": return !this.keysPressedLastFrame[37] && this.keysCurrentlyPressed[37];
         case "ControlLeft": return !this.keysPressedLastFrame[38] && this.keysCurrentlyPressed[38];
         case "ShiftRight": return !this.keysPressedLastFrame[39] && this.keysCurrentlyPressed[39];
+        case "Backspace": return !this.keysPressedLastFrame[40] && this.keysCurrentlyPressed[40];
 
         case "KeyA": return !this.keysPressedLastFrame[0] && this.keysCurrentlyPressed[0];
         case "KeyB": return !this.keysPressedLastFrame[1] && this.keysCurrentlyPressed[1];
@@ -132,6 +133,7 @@ export class KeyManager {
         case "Minus": return this.keysCurrentlyPressed[37];
         case "ControlLeft": return this.keysCurrentlyPressed[38];
         case "ShiftRight": return this.keysCurrentlyPressed[39];
+        case "Backspace": return this.keysCurrentlyPressed[40];
 
         case "KeyA": return this.keysCurrentlyPressed[0];
         case "KeyB": return this.keysCurrentlyPressed[1];
@@ -212,6 +214,9 @@ export class KeyManager {
         break;
         case "ShiftRight":
           this.keyBuffer[39] = pressed;
+        break;
+        case "Backspace":
+          this.keyBuffer[40] = pressed;
         break;
 
 
@@ -318,6 +323,7 @@ export class KeyManager {
         case "Minus": return 37;
         case "ControlLeft": return 38;
         case "ShiftRight": return 39;
+        case "Backspace": return 40;
 
         case "KeyA": return 0;
         case "KeyB": return 1;

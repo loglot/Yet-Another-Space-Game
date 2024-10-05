@@ -69,12 +69,12 @@ export class GameDisplayer {
             this.maskY[2] = ((this.maskY[2]*7)+1500) / 8
             //this.game.map.map[0].rotation++
         } else if(this.game.gameState == "settings") {
-            this.maskY[0] = ((this.maskY[0]*7) -100) / 8
+            this.maskY[0] = ((this.maskY[0]*7) -300) / 8
             this.maskY[1] = ((this.maskY[1]*7)+100) / 8
             this.maskY[2] = ((this.maskY[2]*7)+1200) / 8
             //this.game.map.map[0].rotation++
         } else if(this.game.gameState == "subSettings") {
-            this.maskY[0] = ((this.maskY[0]*7) -400) / 8
+            this.maskY[0] = ((this.maskY[0]*7) -500) / 8
             this.maskY[1] = ((this.maskY[1]*7)+400) / 8
             this.maskY[2] = ((this.maskY[2]*7)+250) / 8
             //this.game.map.map[0].rotation++
@@ -146,6 +146,7 @@ export class GameDisplayer {
             this.drawUtils.Text(this.game.menu.settings[this.game.menu.subSetId].var2[i], ((310-i*-150)+(this.subSetY*1.5 ))+300,(ything + (((ything)-450)*((ything)-450))/40)-470,"black","white",ctx,80 + i*20 +(this.subSetY/5 )-4)
             
         }
+        this.drawUtils.Text(this.game.menu.settings[this.game.menu.subSetId].title,700,-600)
         ctx.restore();
     }
 

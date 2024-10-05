@@ -3,7 +3,7 @@ const canvas = document.getElementById("game_screen");
 const ctx = canvas.getContext("2d");
 export class Map{
     map = []
-    fillColor = ["#aaa", "#052030", "#0f0f0f"]
+    fillColor = ["#aaa", "#000", "#0f0f0f"]
     strokeColor = ["rgba(0,0,0,0)","white","rgba(0,0,0,0)"]
 
     game

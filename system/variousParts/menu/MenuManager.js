@@ -3,8 +3,12 @@ import { Item } from "./MenuItem.js"
 export class Menu{
     game
     colors = ["#90b0c0", "#c0b090"]
+    mainMenuColor = ["#90b0c0","#202030","#1f1f1f","#0f0f2f"]
+    settingsColor = ["#c0b090","#302020","#2f2f2f","#1f1f3f"]
+    subSetColor = ["#c7d8a7","#203020","#3f3f3f","#2f2f4f"]
     settings = []
     settingSelect = 0
+    subSetId = 0
     constructor(game){
         this.game = game
         this.makeSettings()
@@ -12,22 +16,28 @@ export class Menu{
 
     makeSettings(){
         this.settings[this.settings.length] = new Item("Game Style", "Classic", function fun(){ 
-            if(this.var1 == null){
-                this.var1 = 0
-            }if(this.var2 == null){
-                this.var2 = ["Classic", "Retro", "YA2P"]
-            }
-            this.var1++
-            if(this.var1>this.var2.length-1){
-                this.var1=0
-            }
+            this.var2 = ["Classic", "Retro", "YA2P"]
+            
             this.state = this.var2[this.var1]
+            this.game.menu.subSetId = 0
+            this.game.gameState = "subSettings"
+        }, this.game)
+        this.settings[this.settings.length] = new Item("Menu Style", "Classic", function fun(){ 
+            this.var2 = ["Classic", "Dark", "YA2P", "NewWave"]
+
+            this.state = this.var2[this.var1]
+            this.game.menu.subSetId = 1
+            this.game.gameState = "subSettings"
+
         }, this.game)
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
         this.settings[this.settings.length] = new Item()
-        this.settings[this.settings.length] = new Item()
+    }
+
+    makeSubSettings(){
+
     }
 
     tick(){
@@ -41,8 +51,27 @@ export class Menu{
                 
             }
         }
+        if(this.game.gameState == "subSettings"){
+            if(this.game.keyManager.wasKeyJustPressed("Escape")){
+                this.game.gameState = "settings"
+                
+            }
+            if(this.game.keyManager.wasKeyJustPressed("ArrowUp")){
+                this.settings[this.subSetId].var1--
+                this.settings[this.subSetId].state = this.settings[this.subSetId].var2[this.settings[this.subSetId].var1]
+            }
+            if(this.game.keyManager.wasKeyJustPressed("ArrowDown")){
+                this.settings[this.subSetId].var1++
+                this.settings[this.subSetId].state = this.settings[this.subSetId].var2[this.settings[this.subSetId].var1]
+            }
+            if(this.game.keyManager.wasKeyJustPressed("Enter")){
+                this.game.gameState = "settings"
+                this.game.keyManager.disableJustPressed("Enter")
+            }
+
+        }
         if(this.game.gameState == "settings"){
-            if(this.game.keyManager.wasKeyJustPressed("KeyW")){
+            if(this.game.keyManager.wasKeyJustPressed("Escape")){
                 this.game.gameState = "mainMenu"
                 
             }
@@ -57,8 +86,6 @@ export class Menu{
                 this.settings[this.settingSelect].interact()
                 
             }
-            // this.colors[0] = "#0f0f2f"
-            // this.colors[1] = "#1f1f3f"
 
         }
         if(this.game.gameState == "game"){

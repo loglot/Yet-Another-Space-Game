@@ -4,7 +4,7 @@ export class Item{
     state
     game
     var1 = 0
-    var2 = null
+    var2 = []
     constructor(title = "null", state = false, fn = function fun(){}, game){
         this.func = fn
         this.title = title

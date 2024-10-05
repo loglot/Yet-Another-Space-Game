@@ -23,17 +23,18 @@ export class GameDisplayer {
     width
     height
 
-    bg = ["#052030","#052030","#90b0c0"]
+    bg = ["#052030","#000","#90b0c0"]
 
-    maskX = [-2000,-2000] //, 
-    maskY = [-100,1500]
+    maskX = [-2000,-2000,-10000] //, 
+    maskY = [-100,1500,1500]
     maskWidth = [100000,100000]
     maskHeight = [100000,100000]
 
     playerFillColors = ["#afbfaf", "rgba(0,0,0,0)", "#afbfaf"]
     playerStrokeColors = ["#53565f", "white", "#33363f"]
 
-    shopY = 0
+    settingsY = 0
+    subSetY = 0
 
     drawUtils = new DrawUtils();
 
@@ -48,25 +49,34 @@ export class GameDisplayer {
 
         this.resizeCanvasForWindowSize(canvas, ctx);
 
-        this.drawUtils.Rect(0,0,10000,10000,this.game.menu.colors[0], ctx)
+        this.drawUtils.Rect(0,0,10000,10000,this.game.menu.mainMenuColor[this.game.menu.settings[1].var1], ctx)
         this.drawUtils.Text("Yet Another Space Game", 200, 200, "black", "white", ctx, 120)
         this.drawUtils.Text("Press W To Start", 250, 500, "black", "white", ctx, 120)
         this.drawUtils.Text("Press S To Edit Settings", 250, 350, "black", "white", ctx, 120)
 
         this.gameScreen()
         this.optionsScreen()
+        this.subOptionsScreen()
 
         if(this.game.gameState == "mainMenu"){
             this.maskY[0] = ((this.maskY[0]*7) -100) / 8
             this.maskY[1] = ((this.maskY[1]*7)+1155) / 8
+            this.maskY[2] = ((this.maskY[2]*7)+1500) / 8
 
         } else if(this.game.gameState == "game") {
             this.maskY[0] = ((this.maskY[0]*7)-1300) / 8
             this.maskY[1] = ((this.maskY[1]*7)+1500) / 8
+            this.maskY[2] = ((this.maskY[2]*7)+1500) / 8
             //this.game.map.map[0].rotation++
         } else if(this.game.gameState == "settings") {
             this.maskY[0] = ((this.maskY[0]*7) -100) / 8
             this.maskY[1] = ((this.maskY[1]*7)+100) / 8
+            this.maskY[2] = ((this.maskY[2]*7)+1200) / 8
+            //this.game.map.map[0].rotation++
+        } else if(this.game.gameState == "subSettings") {
+            this.maskY[0] = ((this.maskY[0]*7) -400) / 8
+            this.maskY[1] = ((this.maskY[1]*7)+400) / 8
+            this.maskY[2] = ((this.maskY[2]*7)+250) / 8
             //this.game.map.map[0].rotation++
         }
     }
@@ -111,15 +121,32 @@ export class GameDisplayer {
     }
 
     optionsScreen(){
+        ctx.save();
         this.optionsSetup()
         this.drawUtils.Text("=>", -1100, -10, "black", "white", ctx, 120)
-        this.shopY = (this.shopY*9 + (-100 * this.game.menu.settingSelect))/10
+        this.drawUtils.Text("ESC", -1200, -500, "black", "white", ctx, 120)
+        this.settingsY = (this.settingsY*9 + (-100 * this.game.menu.settingSelect))/10
         for(let i = 0; i < this.game.menu.settings.length; i++){
 
-            var ything = 450 + (100*i) + (this.shopY)
-            this.drawUtils.Text(this.game.menu.settings[i].title + " : " + this.game.menu.settings[i].state, ((310-i*200)-(this.shopY*2 ))-1250,(ything + (((ything)-450)*((ything)-450))/40)-470,"black","white",ctx,80 + i*20 +(this.shopY/5 ))
+            var ything = 450 + (100*i) + (this.settingsY)
+            this.drawUtils.Text(this.game.menu.settings[i].title + " : " + this.game.menu.settings[i].state, ((310-i*200)-(this.settingsY*2 ))-1250,(ything + (((ything)-450)*((ything)-450))/40)-470,"black","white",ctx,80 + i*20 +(this.settingsY/5 )-4)
             
         }
+        ctx.restore();
+    }
+
+    subOptionsScreen(){
+        ctx.save();
+        this.subOptionsSetup()
+        this.drawUtils.Text("=>", +400, -10, "black", "white", ctx, 120)
+        this.subSetY = (this.subSetY*9 + (-100 * this.game.menu.settings[this.game.menu.subSetId].var1))/10//this.settings[this.subSetId].var1
+        for(let i = 0; i < this.game.menu.settings[this.game.menu.subSetId].var2.length; i++){
+
+            var ything = 450 + (100*i) + (this.subSetY)
+            this.drawUtils.Text(this.game.menu.settings[this.game.menu.subSetId].var2[i], ((310-i*-150)+(this.subSetY*1.5 ))+300,(ything + (((ything)-450)*((ything)-450))/40)-470,"black","white",ctx,80 + i*20 +(this.subSetY/5 )-4)
+            
+        }
+        ctx.restore();
     }
 
     gameSetup(){
@@ -141,7 +168,19 @@ export class GameDisplayer {
         ctx.rect(this.maskX[1], this.maskY[1], this.maskWidth[1], this.maskHeight[1])
         ctx.rotate(-60 * Math.PI / 180)
         ctx.clip()
-        this.drawUtils.Rect(-10000,-10000,100000,100000,this.game.menu.colors[1], ctx) 
+        this.drawUtils.Rect(-10000,-10000,100000,100000,this.game.menu.settingsColor[this.game.menu.settings[1].var1], ctx) 
+        ctx.closePath()
+
+    }
+
+    subOptionsSetup(){
+        ctx.beginPath()
+        ctx.translate(this.originalWidth/2, this.originalHeight/2)
+        ctx.rotate(-60 * Math.PI / 180)
+        ctx.rect(this.maskX[2], this.maskY[2], this.maskWidth[1], this.maskHeight[1])
+        ctx.rotate(60 * Math.PI / 180)
+        ctx.clip()
+        this.drawUtils.Rect(-10000,-10000,100000,100000,this.game.menu.subSetColor[this.game.menu.settings[1].var1], ctx) 
         ctx.closePath()
 
     }

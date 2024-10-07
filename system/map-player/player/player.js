@@ -43,13 +43,19 @@ export class Player {
         this.velR *= .97
         if(this.rotation >= 360){
             this.rotation -= 360
+            if(this.game.menu.settings[2].var1==0){
             this.game.camera.rotation -= 360
+            }
         }
         if(this.rotation <= 0){
             this.rotation += 360
+            if(this.game.menu.settings[2].var1==0){
             this.game.camera.rotation += 360
+            }
         }
-        this.game.camera.targetR = this.rotation
+        if(this.game.menu.settings[2].var1==0){
+            this.game.camera.targetR = this.rotation
+        }
         if(this.checkCollision(this.game.map.map[2])){
             console.log("colide")
         }

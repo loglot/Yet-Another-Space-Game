@@ -3,9 +3,9 @@ import { Item } from "./MenuItem.js"
 export class Menu{
     game
     colors = ["#90b0c0", "#c0b090"]
-    mainMenuColor = ["#90b0c0","#202030","#1f1f1f","#0f0f2f"]
-    settingsColor = ["#c0b090","#302020","#2f2f2f","#1f1f3f"]
-    subSetColor = ["#c7d8a7","#203020","#3f3f3f","#2f2f4f"]
+    mainMenuColor = ["#90b0c0","#202030","#1f1f1f","#0f0f2f", "#667f59"]
+    settingsColor = ["#c0b090","#302020","#2f2f2f","#1f1f3f", "#88985b"]
+    subSetColor = ["#c7d8a7","#203020","#3f3f3f","#2f2f4f", "#b3b37e"]
     settings = []
     settingSelect = 0
     subSetId = 0
@@ -16,14 +16,14 @@ export class Menu{
 
     makeSettings(){
         this.settings[this.settings.length] = new Item("Game Style", "Classic", function fun(){ 
-            this.var2 = ["Classic", "Retro", "YA2P"]
+            this.var2 = ["Classic", "Retro", "YA2P", "GBoy"]
             
             this.state = this.var2[this.var1]
             this.game.menu.subSetId = 0
             this.game.gameState = "subSettings"
         }, this.game)
         this.settings[this.settings.length] = new Item("Menu Style", "Classic", function fun(){ 
-            this.var2 = ["Classic", "Dark", "YA2P", "NewWave"]
+            this.var2 = ["Classic", "Dark", "YA2P", "NewWave", "GBoy"]
 
             this.state = this.var2[this.var1]
             this.game.menu.subSetId = 1

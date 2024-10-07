@@ -23,15 +23,15 @@ export class GameDisplayer {
     width
     height
 
-    bg = ["#052030","#000","#90b0c0"]
+    bg = ["#052030","#000","#90b0c0", "#333030"]
 
     maskX = [-2000,-2000,-10000] //, 
     maskY = [-100,1500,1500]
     maskWidth = [100000,100000]
     maskHeight = [100000,100000]
 
-    playerFillColors = ["#afbfaf", "rgba(0,0,0,0)", "#afbfaf"]
-    playerStrokeColors = ["#53565f", "white", "#33363f"]
+    playerFillColors = ["#afbfaf", "rgba(0,0,0,0)", "#afbfaf", "#88985b"]
+    playerStrokeColors = ["#53565f", "white", "#33363f", "#4d5966"]
 
     settingsY = 0
     subSetY = 0

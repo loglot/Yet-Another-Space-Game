@@ -54,7 +54,8 @@ export class Hitbox {
             
             ctx.translate(this.x, this.y)
             ctx.rotate(this.rotation*Math.PI/180)
-            ctx.rect(-this.width/2,-this.height/2 , this.width, this.height);
+            //ctx.rect(-this.width/2,-this.height/2 , this.width, this.height);
+            ctx.rect(0,0 , this.width, this.height);
             //ctx.fillRect(-this.width/2,-this.height/2 , this.width, this.height);
             ctx.translate(-this.x, -this.y)
             ctx.rotate(-this.rotation*Math.PI/180)

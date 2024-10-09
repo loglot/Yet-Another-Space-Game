@@ -13,11 +13,12 @@ export class Map{
     }
     makeMap(){
         this.map[this.map.length] = new Hitbox(-1000,-1000,1000,10000, 0)
+        this.map[this.map.length] = new Hitbox(-5000,-1000,1000,10000, 0)
+        this.map[this.map.length] = new Hitbox(-6070,-1000,1000,10000, 0)
         this.map[this.map.length] = new Hitbox(-1000,-1000,1000,10000, 45)
         this.map[this.map.length] = new Hitbox(-1000,2000,1000,10000, 55)
     }
-    draw(){
-        //ctx.beginPath(
+    draw(){ 
         ctx.beginPath()
         for(let i = 0; i < this.map.length; i++){
             ctx.save();

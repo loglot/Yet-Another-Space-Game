@@ -1,6 +1,7 @@
 
 const canvas = document.getElementById("game_screen");
 const ctx = canvas.getContext("2d");
+import { DrawUtils } from "../../variousParts/drawUtills.js";
 
 export class Player {
     x = 0
@@ -9,7 +10,9 @@ export class Player {
     velY = 0
     velR = 0
     rotation = 0
+    disableInput = 0
     game
+    draw = new DrawUtils()
     constructor(game){
         this.game = game
     }
@@ -20,20 +23,25 @@ export class Player {
         }
     }
     changeVel(){
-        if(this.game.keyManager.isKeyPressed("KeyW")){
-            this.velY -= Math.cos(this.rotation * Math.PI /180)
-            this.velX -= Math.sin(this.rotation * Math.PI /180)
-        }
-        if(this.game.keyManager.isKeyPressed("KeyS")){
-            this.velY *= .90
-            this.velX *= .90
-            this.velR *= .90
-        }
-        if(this.game.keyManager.isKeyPressed("KeyA")){
-            this.velR +=.1
-        }
-        if(this.game.keyManager.isKeyPressed("KeyD")){
-            this.velR -=.1
+        if(this.disableInput == 0){
+
+            if(this.game.keyManager.isKeyPressed("KeyW")){
+                this.velY -= Math.cos(this.rotation * Math.PI /180)
+                this.velX -= Math.sin(this.rotation * Math.PI /180)
+            }
+            if(this.game.keyManager.isKeyPressed("KeyS")){
+                this.velY *= .90
+                this.velX *= .90
+                this.velR *= .90
+            }
+            if(this.game.keyManager.isKeyPressed("KeyA")){
+                this.velR +=.1
+            }
+            if(this.game.keyManager.isKeyPressed("KeyD")){
+                this.velR -=.1
+            }
+        }else{
+            this.disableInput--
         }
     }
     move(){
@@ -63,11 +71,16 @@ export class Player {
         for(let i = 0; i < this.game.map.map.length; i++){
 
             if(this.checkCollision(this.game.map.map[i])){
+                var velXstore = this.velX
+                this.velX = -this.velX
+                this.velY = -this.velY
+                this.disableInput = 50
+                i=NaN
             }
         }
     }
 
-    checkCollision(rect) {
+    checkCollision(rect, debug=false) {
         const radians = this.degreesToRadians(rect.rotation); // get the rotation of the rectangle in radians
         const origin = {
             x: rect.x,
@@ -101,26 +114,30 @@ export class Player {
         const distance = Math.sqrt((distX ** 2) + (distY ** 2));
           
         // if the distance is less than the circle's radius, there is a collision
-        ctx.save();
-        ctx.beginPath()
+        if(this.game.debug.mapBoxShow){
 
-        ctx.translate(this.game.display.originalWidth/2, this.game.display.originalHeight/2) 
-        ctx.rotate(this.game.camera.rotation * Math.PI / 180)
-        ctx.translate(-this.game.camera.x, -this.game.camera.y)
-        
-        ctx.translate(rectCorrected.x, rectCorrected.y)
-        ctx.translate(rectCorrected.width/2, rectCorrected.height/2)
-        ctx.rotate(radians)
-        ctx.rect(-rectCorrected.width/2, -rectCorrected.height/2, rectCorrected.width, rectCorrected.height);
+            ctx.save();
+            ctx.beginPath()
 
-        ctx.fillStyle = "rgba(0,255,0,.1)"
-        ctx.fill()
-        ctx.closePath()
-        ctx.restore();
+            ctx.translate(this.game.display.originalWidth/2, this.game.display.originalHeight/2) 
+            ctx.rotate(this.game.camera.rotation * Math.PI / 180)
+            ctx.translate(-this.game.camera.x, -this.game.camera.y)
+            this.draw.Circle(this.x, this.y, 25);
+            
+            ctx.translate(rectCorrected.x, rectCorrected.y)
+            ctx.translate(rectCorrected.width/2, rectCorrected.height/2)
+            ctx.rotate(radians)
+            ctx.rect(-rectCorrected.width/2, -rectCorrected.height/2, rectCorrected.width, rectCorrected.height);
 
-        if (distance < 50) return true;
-        ctx.fillStyle = "rgba(255,0,0,.2)"
-        ctx.fill()
+            if (distance < 25) {ctx.fillStyle = "rgba(0,255,0,.1)"} else {ctx.fillStyle = "rgba(255,0,0,.2)"}
+            ctx.fill()
+            ctx.closePath()
+            ctx.restore();
+
+
+        }
+
+        if (distance < 25) return true;
           
         return false;
     }
@@ -137,6 +154,10 @@ export class Player {
 
     degreesToRadians(degrees) {
         return degrees * Math.PI / 180;
+    }
+
+    debugDraw(){
+
     }
     
 }

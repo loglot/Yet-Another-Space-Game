@@ -54,9 +54,11 @@ export class GameDisplayer {
         this.drawUtils.Text("Press W To Start", 250, 500, "black", "white", ctx, 120)
         this.drawUtils.Text("Press S To Edit Settings", 250, 350, "black", "white", ctx, 120)
 
+        ctx.save();
         this.gameScreen()
         this.optionsScreen()
         this.subOptionsScreen()
+        ctx.restore();
 
         if(this.game.gameState == "mainMenu"){
             this.maskY[0] = ((this.maskY[0]*7) -100) / 8

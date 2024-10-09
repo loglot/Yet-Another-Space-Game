@@ -20,8 +20,10 @@ export class Map{
         //ctx.beginPath(
         ctx.beginPath()
         for(let i = 0; i < this.map.length; i++){
+            ctx.save();
 
             this.map[i].tempDraw()
+            ctx.restore();
         }
         //ctx.fill()
         //ctx.lineWidth = 8

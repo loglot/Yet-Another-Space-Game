@@ -1,3 +1,7 @@
+
+const canvas = document.getElementById("game_screen");
+const ctx = canvas.getContext("2d");
+
 export class Player {
     x = 0
     y = 0
@@ -56,11 +60,10 @@ export class Player {
         if(this.game.menu.settings[2].var1==0){
             this.game.camera.targetR = this.rotation
         }
-        if(this.checkCollision(this.game.map.map[2])){
-            console.log("colide")
-        }
-        if(this.checkCollision(this.game.map.map[0])){
-            console.log("colide No Rotation")
+        for(let i = 0; i < this.game.map.map.length; i++){
+
+            if(this.checkCollision(this.game.map.map[i])){
+            }
         }
     }
 
@@ -98,7 +101,26 @@ export class Player {
         const distance = Math.sqrt((distX ** 2) + (distY ** 2));
           
         // if the distance is less than the circle's radius, there is a collision
+        ctx.save();
+        ctx.beginPath()
+
+        ctx.translate(this.game.display.originalWidth/2, this.game.display.originalHeight/2) 
+        ctx.rotate(this.game.camera.rotation * Math.PI / 180)
+        ctx.translate(-this.game.camera.x, -this.game.camera.y)
+        
+        ctx.translate(rectCorrected.x, rectCorrected.y)
+        ctx.translate(rectCorrected.width/2, rectCorrected.height/2)
+        ctx.rotate(radians)
+        ctx.rect(-rectCorrected.width/2, -rectCorrected.height/2, rectCorrected.width, rectCorrected.height);
+
+        ctx.fillStyle = "rgba(0,255,0,.1)"
+        ctx.fill()
+        ctx.closePath()
+        ctx.restore();
+
         if (distance < 50) return true;
+        ctx.fillStyle = "rgba(255,0,0,.2)"
+        ctx.fill()
           
         return false;
     }

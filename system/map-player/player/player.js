@@ -6,6 +6,7 @@ import { DrawUtils } from "../../variousParts/drawUtills.js";
 export class Player {
     x = 0
     y = 0
+    close
     velX = 0
     velY = 0
     velR = 0
@@ -71,16 +72,19 @@ export class Player {
         for(let i = 0; i < this.game.map.map.length; i++){
 
             if(this.checkCollision(this.game.map.map[i])){
-                var velXstore = this.velX
-                this.velX = -this.velX
-                this.velY = -this.velY
+                var totalvelstore = this.velX + this.velY
+                this.velX = -(this.close.x - this.x)
+                this.velY = -(this.close.y - this.y)
+                var totalvelchange = (this.velX + this.velX) /totalvelstore
+                //this.velX *= totalvelchange
+                //this.velY *= totalvelchange
                 this.disableInput = 50
                 i=NaN
             }
         }
     }
 
-    checkCollision(rect, debug=false) {
+    checkCollision(rect) {
         const radians = this.degreesToRadians(rect.rotation); // get the rotation of the rectangle in radians
         const origin = {
             x: rect.x,
@@ -114,6 +118,7 @@ export class Player {
         const distance = Math.sqrt((distX ** 2) + (distY ** 2));
           
         // if the distance is less than the circle's radius, there is a collision
+            this.close = this.getRotatedPos({x:rect.x, y:rect.y}, {x:closestX,y:closestY}, -radians)
         if(this.game.debug.mapBoxShow){
 
             ctx.save();
@@ -123,6 +128,7 @@ export class Player {
             ctx.rotate(this.game.camera.rotation * Math.PI / 180)
             ctx.translate(-this.game.camera.x, -this.game.camera.y)
             this.draw.Circle(this.x, this.y, 25);
+            this.draw.Circle(this.close.x, this.close.y, 25);
             
             ctx.translate(rectCorrected.x, rectCorrected.y)
             ctx.translate(rectCorrected.width/2, rectCorrected.height/2)

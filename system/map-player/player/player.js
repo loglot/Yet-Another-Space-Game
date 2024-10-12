@@ -72,14 +72,17 @@ export class Player {
         for(let i = 0; i < this.game.map.map.length; i++){
 
             if(this.checkCollision(this.game.map.map[i])){
-                var totalvelstore = this.velX + this.velY
-                this.velX = -(this.close.x - this.x)
-                this.velY = -(this.close.y - this.y)
-                var totalvelchange = (this.velX + this.velX) /totalvelstore
-                //this.velX *= totalvelchange
-                //this.velY *= totalvelchange
-                this.disableInput = 50
-                i=NaN
+                if(!this.game.debug.noclip){
+
+                    var totalvelstore = this.velX + this.velY
+                    this.velX = -(this.close.x - this.x)
+                    this.velY = -(this.close.y - this.y)
+                    var totalvelchange = (this.velX + this.velX) /totalvelstore
+                    //this.velX *= totalvelchange
+                    //this.velY *= totalvelchange
+                    this.disableInput = 0
+                    i=NaN
+                }
             }
         }
     }
